@@ -15,7 +15,11 @@ const initialState = {
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    // do reducer stuff
+    case ON_SEARCH:
+      return {
+        ...state,
+        isLoading: true,
+      };
     default:
       return state;
   }
