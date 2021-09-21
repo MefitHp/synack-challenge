@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { onSearch } from "../../redux/search";
+
 const SearchBarContainer = styled.div`
   display: flex;
   gap: 1rem;
@@ -18,7 +19,7 @@ const SearchBarContainer = styled.div`
     transition: background-color 0.1s;
     &:hover {
       color: white;
-      background-color: rgba(0, 0, 0, 0.33);
+      background-color: #dadada;
     }
   }
 `;
@@ -36,6 +37,10 @@ const SearchBar = () => {
     setProvider(e.target.value);
   }
 
+  function handleOnSearchClick() {
+    dispatch(onSearch());
+  }
+
   return (
     <SearchBarContainer>
       <input
@@ -44,7 +49,7 @@ const SearchBar = () => {
         value={query}
         onChange={handleSearchInput}
       />
-      <button>Search</button>
+      <button onClick={handleOnSearchClick}>Search</button>
       <select
         id="search_provider"
         name="Search Provider"

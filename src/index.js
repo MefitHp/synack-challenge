@@ -3,9 +3,13 @@ import { Provider } from "react-redux";
 
 import ReactDOM from "react-dom";
 import App from "./App";
+import configureStore from "./redux/configureStore";
 import reportWebVitals from "./reportWebVitals";
-import { store } from "./redux";
 import "./index.css";
+
+const { store, middleware, rootSaga } = configureStore();
+
+middleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

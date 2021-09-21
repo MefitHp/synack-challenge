@@ -18,15 +18,15 @@ const Layout = styled.div`
 `;
 
 const SearchBarContainer = styled.section`
-  padding: 1em;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 1em 0em;
 `;
+
 const ResultsContainer = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.3);
   flex: 1;
   padding: 1rem;
   border-radius: 0.5rem;
   overflow-y: auto;
+  box-shadow: var(--box-shadow);
 `;
 
 function App() {
