@@ -23,7 +23,6 @@ function* onSearch(action) {
     const results = yield call(onSearchApi, action.payload);
     yield put({ type: ON_SEARCH_SUCCESS, payload: results });
   } catch (e) {
-    console.error({ e });
     yield put({ type: ON_SEARCH_ERROR, payload: e });
   }
 }
