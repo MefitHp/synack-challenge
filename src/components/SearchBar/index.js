@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { onSearch } from "../../redux/search";
+import { getSearchisLoadingSelector } from "../../redux/selectors/search";
 
 const SearchBarContainer = styled.div`
   display: flex;
@@ -11,12 +12,16 @@ const SearchBarContainer = styled.div`
     flex: 1;
   }
 
+  button {
+    width: 100px;
+  }
+
   select {
     width: 7rem;
     padding: 0 1rem;
     border-radius: 0.5rem;
     box-shadow: var(--box-shadow);
-    transition: background-color 0.1s;
+    transition: all 0.1s;
     &:hover {
       color: white;
       background-color: #dadada;
@@ -27,6 +32,7 @@ const SearchBarContainer = styled.div`
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [provider, setProvider] = useState(searchProviders[0]?.value);
+  const isLoading = useSelector(getSearchisLoadingSelector);
   const dispatch = useDispatch();
 
   function handleSearchInput(e) {
@@ -38,7 +44,19 @@ const SearchBar = () => {
   }
 
   function handleOnSearchClick() {
-    dispatch(onSearch());
+    if (!query) return;
+    dispatch(
+      onSearch({
+        provider,
+        query: encodeURIComponent(query),
+      })
+    );
+  }
+
+  function handleKeypress(e) {
+    if (e.charCode === 13) {
+      handleOnSearchClick();
+    }
   }
 
   return (
@@ -48,13 +66,18 @@ const SearchBar = () => {
         placeholder="Search here.."
         value={query}
         onChange={handleSearchInput}
+        disabled={isLoading}
+        onKeyPress={handleKeypress}
       />
-      <button onClick={handleOnSearchClick}>Search</button>
+      <button onClick={handleOnSearchClick} disabled={isLoading}>
+        {isLoading ? "Loading.." : "Search"}
+      </button>
       <select
         id="search_provider"
         name="Search Provider"
         value={provider}
         onChange={handleProviderChange}
+        disabled={isLoading}
       >
         {searchProviders.map(({ id, value, name }) => (
           <option key={id} value={value}>
