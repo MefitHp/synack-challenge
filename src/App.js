@@ -46,9 +46,9 @@ function App() {
               <code>{JSON.stringify(error, null, 2)}</code>
             </span>
           )}
-          {results?.map(({ title, provider }) => {
+          {results?.map(({ title, provider }, idx) => {
             return (
-              <div key={title}>
+              <div key={idx}>
                 <p>{title}</p>
                 <b>{provider}</b>
               </div>

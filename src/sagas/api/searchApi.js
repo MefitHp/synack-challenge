@@ -22,8 +22,6 @@ const defaultConfigs = {
 };
 
 export const onSearchApi = ({ provider, query }) => {
-  if (provider === "both") return;
-
   const { getUrl, ...providerConfig } = defaultConfigs[provider];
   return axios.get(getUrl(query), providerConfig);
 };
