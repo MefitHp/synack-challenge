@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 
-import { SearchBar } from "./components";
+import { ResultItem, SearchBar } from "./components";
 import { getSearchStateSelector } from "./redux/selectors/search";
 const Container = styled.section`
   height: calc(100vh - 2em);
@@ -29,6 +29,9 @@ const ResultsContainer = styled.div`
   border-radius: 0.5rem;
   overflow-y: auto;
   box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 function App() {
@@ -39,22 +42,19 @@ function App() {
         <SearchBarContainer>
           <SearchBar />
         </SearchBarContainer>
-        <ResultsContainer>
-          {error && (
-            <span>
-              There was en error while trying to fetch:
-              <code>{JSON.stringify(error, null, 2)}</code>
-            </span>
-          )}
-          {results?.map(({ title, provider }, idx) => {
-            return (
-              <div key={idx}>
-                <p>{title}</p>
-                <b>{provider}</b>
-              </div>
-            );
-          })}
-        </ResultsContainer>
+        {results && (
+          <ResultsContainer>
+            {error && (
+              <span>
+                There was en error while trying to fetch:
+                <code>{JSON.stringify(error, null, 2)}</code>
+              </span>
+            )}
+            {results?.map((props, idx) => {
+              return <ResultItem key={idx} {...props} />;
+            })}
+          </ResultsContainer>
+        )}
       </Layout>
     </Container>
   );

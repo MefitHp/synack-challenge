@@ -30,7 +30,7 @@ const SearchBarContainer = styled.div`
 `;
 
 const SearchBar = () => {
-  const [query, setQuery] = useState("Mefit Hernandez");
+  const [query, setQuery] = useState("");
   const [provider, setProvider] = useState(searchProviders[0]?.value);
   const isLoading = useSelector(getSearchisLoadingSelector);
   const dispatch = useDispatch();
@@ -53,6 +53,12 @@ const SearchBar = () => {
     );
   }
 
+  function handleKeypress(e) {
+    if (e.charCode === 13) {
+      handleOnSearchClick();
+    }
+  }
+
   return (
     <SearchBarContainer>
       <input
@@ -61,6 +67,7 @@ const SearchBar = () => {
         value={query}
         onChange={handleSearchInput}
         disabled={isLoading}
+        onKeyPress={handleKeypress}
       />
       <button onClick={handleOnSearchClick} disabled={isLoading}>
         {isLoading ? "Loading.." : "Search"}
