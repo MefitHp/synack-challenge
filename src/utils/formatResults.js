@@ -9,6 +9,7 @@ function formatResults(data) {
         title: name,
         link: displayUrl,
         description: snippet,
+        provider: "bing",
       };
     });
     formattedResults.push(...pages);
@@ -21,9 +22,9 @@ function formatResults(data) {
         title,
         link,
         description: snippet,
+        provider: "google",
       };
     });
-    console.log({ pages });
     formattedResults.push(...pages);
   }
 

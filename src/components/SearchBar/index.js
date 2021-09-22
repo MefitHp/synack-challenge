@@ -45,7 +45,7 @@ const SearchBar = () => {
 
   function handleOnSearchClick() {
     if (!query) return;
-
+    console.log(encodeURIComponent(query));
     dispatch(
       onSearch({
         provider,
