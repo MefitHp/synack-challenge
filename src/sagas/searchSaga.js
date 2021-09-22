@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { ON_SEARCH, ON_SEARCH_ERROR, ON_SEARCH_SUCCESS } from "../redux/search";
+import { ON_SEARCH, onSearchSuccess, onSearchError } from "../redux/search";
 import { onSearchApi } from "./api/searchApi";
 
 function* onSearch(action) {
@@ -17,13 +17,13 @@ function* onSearch(action) {
         results = { ...results, ...promise.data };
       });
 
-      return yield put({ type: ON_SEARCH_SUCCESS, payload: { data: results } });
+      return yield put(onSearchSuccess({ data: results }));
     }
 
     const results = yield call(onSearchApi, action.payload);
-    yield put({ type: ON_SEARCH_SUCCESS, payload: results });
+    yield put(onSearchSuccess(results));
   } catch (e) {
-    yield put({ type: ON_SEARCH_ERROR, payload: e });
+    yield put(onSearchError(e));
   }
 }
 
