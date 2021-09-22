@@ -42,7 +42,7 @@ function App() {
         <SearchBarContainer>
           <SearchBar />
         </SearchBarContainer>
-        {results && (
+        {(results || error) && (
           <ResultsContainer>
             {error && (
               <span>
