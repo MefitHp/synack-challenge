@@ -3,7 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import combineSagas from "../sagas";
 
 import searchReducer from "./search";
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   search: searchReducer,
 });
 
